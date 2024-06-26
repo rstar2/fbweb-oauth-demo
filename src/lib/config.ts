@@ -26,16 +26,13 @@ class Config {
 
 // NOTE: Prevent Next.js to instantiate/load each JS/TS on each compile in DEV mode
 // https://stackoverflow.com/questions/75272877/how-to-prevent-next-js-from-instantiating-a-singleton-class-object-multiple-time
-let config: Config;
-// if (process.env.NODE_ENV === "production") {
-//     config = new Config();
-// } else {
-    // @ts-ignore
-    if (!global.__config)
-        // @ts-ignore
-        global.__config = new Config();
-    // @ts-ignore
-    config = global.__config;
-// }
+// https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
+declare const globalThis: {
+    configGlobal: Config;
+  } & typeof global;
 
+const config: Config = globalThis.configGlobal ?? new Config();
 export default config;
+
+// if (process.env.NODE_ENV !== 'production')
+    globalThis.configGlobal = config;

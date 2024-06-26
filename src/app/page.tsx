@@ -9,7 +9,7 @@ import config from "@/lib/config";
 // opt out of Next.js full route caching
 export const dynamic = "force-dynamic";
 
-// single demo user
+// the single demo user
 const uid = "user1";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
     return (
         <div className="App">
-            <h3>OAuth authorization by FbWeb - {new Date().toLocaleString()} - {config.getDate()}</h3>
+            <h3>OAuth authorization by FbWeb</h3>
 
             <div className="card">
                 <SetupForm initValue={oauthSetup}/>

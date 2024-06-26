@@ -40,20 +40,30 @@ function getOAuthAccessToken(uid: string): string | undefined {
     return oauthAccessToken;
 }
 
-let sessions = {
-    clear,
-    addOAuthState,
-    addOauthAccessToken,
-    getOAuthAccessToken
-};
 
-// if (process.env.NODE_ENV !== "production") {
-    // @ts-ignore
-    if (!global.__sessions)
-        // @ts-ignore
-        global.__sessions = sessions;
-    // @ts-ignore
-    sessions = global.__sessions;
-// }
+// NOTE: Prevent Next.js to instantiate/load each JS/TS on each compile in DEV mode
+// https://stackoverflow.com/questions/75272877/how-to-prevent-next-js-from-instantiating-a-singleton-class-object-multiple-time
+// https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
 
+
+const sessionsConfigCreate = () => {
+    console.log("construct sessions", new Date().toLocaleString());
+
+    return {
+        clear,
+        addOAuthState,
+        addOauthAccessToken,
+        getOAuthAccessToken
+    };
+  }
+
+declare const globalThis: {
+    sessionsGlobal: ReturnType<typeof sessionsConfigCreate>;
+  } & typeof global;
+
+
+const sessions = globalThis.sessionsGlobal ?? sessionsConfigCreate();
 export default sessions;
+
+// if (process.env.NODE_ENV !== "production")
+    globalThis.sessionsGlobal = sessions;
