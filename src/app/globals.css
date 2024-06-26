@@ -92,7 +92,7 @@ button:focus-visible {
 }
 
 input.url {
-    width: 10em;
+    width: 70%;
 }
 
 @media (prefers-color-scheme: light) {

@@ -2,8 +2,8 @@
 
 import {logout as logoutAction} from "@/lib/actions";
 
-export default function Logout() {
+export default function Logout({uid}: { uid: string }) {
     return (
-        <button onClick={() => logoutAction()}> Logout </button>
+        <button onClick={() => logoutAction(uid)}> Logout </button>
     );
 }

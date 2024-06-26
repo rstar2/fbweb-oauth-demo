@@ -3,46 +3,47 @@ import GetAccessToken from "@/components/GetAccessToken";
 import GetData from "@/components/GetData";
 import SetupForm from "@/components/SetupForm";
 
-const appBaseUrlFbWeb = "/app/fbweb";
+import sessions from "@/lib/sessions";
+import config from "@/lib/config";
 
+// single demo user
 const uid = "user1";
 
 export default function Home() {
-    // todo
-    const isLoggedIn = true;
+    const isLoggedIn = !!sessions.getOAuthAccessToken(uid);
 
-    // TODO Rumen : move as actions
-    const getAccessToken = () => fetch(`${appBaseUrlFbWeb}/oauth/check?uid=${uid}`);
-    const logout = () => fetch(`${appBaseUrlFbWeb}/oauth/logout?uid=${uid}`);
+    const oauthSetup = config.getOAuthSetup();
 
     return (
         <div className="App">
-            <h1>Demo for OAuth authorization by FbWeb</h1>
+            <h3>OAuth authorization by FbWeb</h3>
 
             <div className="card">
-                <SetupForm/>
+                <SetupForm initValue={oauthSetup}/>
             </div>
 
-            {!isLoggedIn ?
+            {oauthSetup &&
 
-                // not logged in, so show the Login button
-                <div className="card">
-                    <a href={`${appBaseUrlFbWeb}/oauth/login?uid=${uid}`}>Login to FbWeb</a>
-                </div> :
+                (!isLoggedIn ?
 
-                // logged in FbWeb so allow "working" with it
-                <>
-                    <div className="card flexRow">
-                        <div>You are logged in FbWeb and have access to protected data</div>
-                        <Logout/>
-                    </div>
-
+                    // not logged in, so show the Login button
                     <div className="card">
-                        <GetAccessToken/>
-                    </div>
+                        <a href={`/oauth/login?uid=${uid}`}>Login to FbWeb</a>
+                    </div> :
 
-                    <GetData initUrl={`${appBaseUrlFbWeb}/get_data?uid=${uid}`}/>
-                </>
+                    // logged in FbWeb so allow "working" with it
+                    <>
+                        <div className="card flexRow">
+                            <div>You are logged in FbWeb and have access to protected data</div>
+                            <Logout uid={uid}/>
+                        </div>
+
+                        <div className="card">
+                            <GetAccessToken uid={uid}/>
+                        </div>
+
+                        <GetData uid={uid} />
+                    </>)
             }
         </div>
     );
