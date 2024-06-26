@@ -46,13 +46,14 @@ let sessions = {
     addOauthAccessToken,
     getOAuthAccessToken
 };
-if (process.env.NODE_ENV !== "production") {
+
+// if (process.env.NODE_ENV !== "production") {
     // @ts-ignore
     if (!global.__sessions)
         // @ts-ignore
         global.__sessions = sessions;
     // @ts-ignore
     sessions = global.__sessions;
-}
+// }
 
 export default sessions;
