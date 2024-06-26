@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const state = sessions.addOAuthState(uid);
     const {fbwebUrl, clientId} = oauthSetup;
 
-    const redirectUrl = request.nextUrl.origin + "/oauth/callback";
+    const redirectUrl = `${process.env.PUBLIC_SERVER_URL || request.nextUrl.origin}/oauth/callback`;
 
     const fbwebOAuthAuthorizeUid = `${fbwebUrl}/fbweb/app/public/view/oauth_authorize?` +
         "response_type=code&" +

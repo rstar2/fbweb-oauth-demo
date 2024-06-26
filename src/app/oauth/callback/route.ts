@@ -4,9 +4,6 @@ import {redirect} from "next/navigation";
 import config from "@/lib/config";
 import sessions from "@/lib/sessions";
 
-if (process.env.NODE_ENV !== "production")
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
 
