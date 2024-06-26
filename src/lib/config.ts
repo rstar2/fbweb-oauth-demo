@@ -5,6 +5,10 @@ class Config {
 
     private date = new Date();
 
+    constructor() {
+        console.log("construct setup", this.date, process.env.NEXT_RUNTIME);
+    }
+
     getOAuthSetup(): OAuthSetup | undefined {
         console.log("get setup", this.oauthSetup);
         return this.oauthSetup;
