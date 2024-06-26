@@ -6,6 +6,8 @@ import config from "@/lib/config";
 
 // .../oauth/login?uid=xxx
 export async function GET(request: NextRequest) {
+    console.log("login", config.getDate());
+
     const searchParams = request.nextUrl.searchParams;
     const uid = searchParams.get("uid");
 

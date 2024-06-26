@@ -19,7 +19,7 @@ export default function Home() {
 
     return (
         <div className="App">
-            <h3>OAuth authorization by FbWeb</h3>
+            <h3>OAuth authorization by FbWeb - {new Date().toLocaleString()} - {config.getDate()}</h3>
 
             <div className="card">
                 <SetupForm initValue={oauthSetup}/>

@@ -3,6 +3,8 @@ import {type OAuthSetup} from "@/lib/types";
 class Config {
     private oauthSetup: OAuthSetup | undefined;
 
+    private date = new Date();
+
     getOAuthSetup(): OAuthSetup | undefined {
         console.log("get setup", this.oauthSetup);
         return this.oauthSetup;
@@ -11,6 +13,10 @@ class Config {
     setOAuthSetup(oauthApp: OAuthSetup | undefined) {
         console.log("set setup", oauthApp);
         this.oauthSetup = oauthApp;
+    }
+
+    getDate(): string {
+        return this.date.toLocaleString();
     }
 }
 
