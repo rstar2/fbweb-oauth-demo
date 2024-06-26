@@ -1,16 +1,16 @@
 import {type OAuthSetup} from "@/lib/types";
 
 class Config {
-    #oauthSetup: OAuthSetup | undefined;
+    private oauthSetup: OAuthSetup | undefined;
 
     getOAuthSetup(): OAuthSetup | undefined {
-        console.log("??? get setup", this.#oauthSetup);
-        return this.#oauthSetup;
+        // console.log("??? get setup", this.oauthSetup);
+        return this.oauthSetup;
     }
 
     setOAuthSetup(oauthApp: OAuthSetup | undefined) {
-        console.log("??? set setup", oauthApp);
-        this.#oauthSetup = oauthApp;
+        // console.log("??? set setup", oauthApp);
+        this.oauthSetup = oauthApp;
     }
 }
 
@@ -20,9 +20,11 @@ let config: Config;
 if (process.env.NODE_ENV === "production") {
     config = new Config();
 } else {
-    if (!global.__config) {
+    // @ts-ignore
+    if (!global.__config)
+        // @ts-ignore
         global.__config = new Config();
-    }
+    // @ts-ignore
     config = global.__config;
 }
 

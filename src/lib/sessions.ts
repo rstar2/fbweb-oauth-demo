@@ -35,7 +35,7 @@ function addOauthAccessToken(uid: string, oauthState: string, oauthAccessToken: 
 
 
 function getOAuthAccessToken(uid: string): string | undefined {
-    const oauthAccessToken = oauthAccessTokenCache.get(uid)?.accessToken;
+    const oauthAccessToken = oauthAccessTokenCache.get<{ accessToken?: string }>(uid)?.accessToken;
     console.log("get accessToken-cache for", uid, oauthAccessToken);
     return oauthAccessToken;
 }
@@ -45,12 +45,14 @@ let sessions = {
     addOAuthState,
     addOauthAccessToken,
     getOAuthAccessToken
-}
+};
 if (process.env.NODE_ENV !== "production") {
-    if (!global.__sessions) {
+    // @ts-ignore
+    if (!global.__sessions)
+        // @ts-ignore
         global.__sessions = sessions;
-    }
+    // @ts-ignore
     sessions = global.__sessions;
 }
 
-export default sessions
+export default sessions;
