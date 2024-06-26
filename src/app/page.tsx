@@ -7,8 +7,7 @@ import sessions from "@/lib/sessions";
 import config from "@/lib/config";
 
 // opt out of Next.js full route caching
-const dynamic = "force-dynamic";
-const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 // single demo user
 const uid = "user1";
