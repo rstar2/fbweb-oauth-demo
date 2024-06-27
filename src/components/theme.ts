@@ -41,6 +41,7 @@ const ButtonStyle = defineStyleConfig({
   // Two variants: outline and solid by default, but can add new ones.
   // The variants will use the color scheme, but colors can be overridden
   variants: {
+    // add the default "solid" so that TypeScript to be able to detect it and allow usage it in "defaultProps" for instance
     solid: {},
     outline: {
       //border: "3px dashed",

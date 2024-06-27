@@ -12,6 +12,13 @@ const oauthAccessTokenCache = new NodeCache({
     checkperiod: 60 // in seconds
 });
 
+function clearAll() {
+    console.log("remove all state-cache");
+    console.log("remove all accessToken-cache");
+    oauthStateCache.flushAll();
+    oauthAccessTokenCache.flushAll();
+}
+
 function clear(uid: string) {
     console.log("remove state-cache for", uid, oauthStateCache.take(uid));
     console.log("remove accessToken-cache for", uid, oauthAccessTokenCache.take(uid));
@@ -50,6 +57,7 @@ const sessionsConfigCreate = () => {
     console.log("construct sessions", new Date().toLocaleString());
 
     return {
+        clearAll,
         clear,
         addOAuthState,
         addOauthAccessToken,
