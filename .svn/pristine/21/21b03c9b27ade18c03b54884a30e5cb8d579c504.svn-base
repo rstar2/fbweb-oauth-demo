@@ -1,0 +1,5 @@
+# The public server base URL (not ending with "/")
+PUBLIC_SERVER_URL=https://fbweb-oauth-demo.fileflex.com
+
+# for local development
+# NODE_TLS_REJECT_UNAUTHORIZED=0
